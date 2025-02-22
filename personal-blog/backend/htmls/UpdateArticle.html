@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Article</h1>
+        <div class="section">
+            <label for="articleTitle">Article Title</label>
+            <input type="text" id="articleTitle" name="articleTitle">
+        </div>
+        <div class="section">
+            <label for="publishingDate">Publishing Date</label>
+            <input type="date" id="publishingDate" name="publishingDate">
+        </div>
+        <div class="section">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="10"></textarea>
+        </div>
+        <button type="submit">Update</button>
+        <button type="submit">Publish</button>
+    </div>
+</body>
+</html>
