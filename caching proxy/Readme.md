@@ -21,8 +21,9 @@ Installation
   Run the Proxy:
 
 ```bash
-  ./caching-proxy --origin http://example.com
+  ./caching-proxy --origin http://example.com --port 6266
 ```
-  Replace `http://example.com` with the URL of the origin server you want to proxy.
+  Replace `http://example.com` with the URL of the origin server you want to proxy and 6266 with the port number you want .
+  then go to your browser and type `127.0.0.1:6266` (or the port you wanted) you can see the project caches the responses 
 
   
