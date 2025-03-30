@@ -1,5 +1,5 @@
 # Golang-projects
-List of projgects related to the site `roadmap.sh`
+List of projgects related to the site `roadmap.sh` and `Others`
 
 
 
