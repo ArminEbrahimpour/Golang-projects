@@ -2,9 +2,11 @@ package main
 
 import (
 	"chatApp/src/handlers"
+	"chatApp/src/model"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
+	"github.com/gofiber/websocket/v2"
 )
 
 func main() {
@@ -35,6 +37,14 @@ func main() {
 	*/
 	// app handler routes
 	app.Get("/", appHandler.HandleGetIndex)
+
+	// create a new websokcet
+	server := model.NewWebSocket()
+	app.Get("/ws", websocket.New(func(ctx *websocket.Conn) {
+		server.HandleWebSocket(ctx)
+	}))
+
+	go server.HandleMessages()
 
 	app.Listen(":7766")
 }
