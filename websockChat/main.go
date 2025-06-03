@@ -20,9 +20,13 @@ func serveIndex(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	hub := NewHub()
+
+	go hub.Run()
+
 	http.HandleFunc("/", serveIndex)
 	http.HandleFunc("/websock", func(w http.ResponseWriter, r *http.Request) {
-		serveHub(hub, w, r)
+		serveWebsock(hub, w, r)
 	})
 
 	log.Fatal(http.ListenAndServe(":3000", nil))
