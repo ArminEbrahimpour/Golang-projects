@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--HTMX-->
+        <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+        
+
+        <!--HTMX websocket extension -->
+        <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+        <!--Tailwind-->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>websocket chat application</title>
+    </head>
+    <body>
+        <h1 class="text-3xl text-center p-4">websocket Chat</h1>
+        <div hx-ext="websock" ws-connect="/websock" >
+        <div class="flex bg-gray-100 p-4">
+            <ul id="chat_room" hx-swap="beforeend" hx-swap-oob="beforeend"></ul>
+
+        </div>
+
+
+        <form id="form" ws-send>
+            <input name="text" type="text" class="border-2 border-gray-300 p-2" placeholder="Type message">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2">send</button>
+        </form>
+        </div>
+    </body>
+</html>
