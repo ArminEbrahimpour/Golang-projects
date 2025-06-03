@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"log"
 	"net/http"
 	"time"
@@ -17,10 +19,9 @@ type Client struct {
 }
 
 const (
-	pongWait := 60 * time.Second
-
+	pongWait       = 60 * time.Second
+	maxMessageSize = 512
 )
-
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -41,7 +42,7 @@ func serveWebsock(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	go client.readPump()
 }
 
-func (c *Client) writePump() {
+func (c *Client) readPump() {
 
 	defer func() {
 		c.conn.Close()
@@ -55,6 +56,27 @@ func (c *Client) writePump() {
 		return nil
 	})
 
+	for {
+		_, text, err := c.conn.ReadMessage()
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				log.Println(err)
+			}
+			continue
+		}
+		log.Printf("value %v", string(text))
+
+		msg := &WsMessage{}
+		reader := bytes.NewReader(text)
+		decoder := json.NewDecoder(reader)
+		err = decoder.Decode(msg)
+		if err != nil {
+			log.Println(err)
+		}
+
+		c.hub.broadCast <- &Message{ClientID: c.id, Text: msg.Text}
+
+	}
 }
 
-func (c *Client) readPump() {}
+func (c *Client) writePump() {}
